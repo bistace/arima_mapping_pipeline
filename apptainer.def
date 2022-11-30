@@ -13,15 +13,16 @@ From: ubuntu:20.04
     export PATH=/opt/bin:$PATH
 
 %files
-    01_mapping_arima.sh /opt/bin
-    filter_five_end.pl /opt/bin
-    get_stats.pl /opt/bin
-    two_read_bam_combiner.pl /opt/bin
+    01_mapping_arima.sh
+    filter_five_end.pl
+    get_stats.pl
+    two_read_bam_combiner.pl
 
 %post
     export DEBIAN_FRONTEND=noninteractive
     apt update && apt upgrade -y
-    apt install -y bwa samtools picard-tools perl
-    chmod -R a+rwx /opt/bin 
+    apt install -y bwa samtools picard-tools perl 
 
-    
+    mkdir /opt/bin
+    cp 01_mapping_arima.sh filter_five_end.pl get_stats.pl two_read_bam_combiner.pl /opt/bin
+    chmod -R a+rwx /opt/bin
