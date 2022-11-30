@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 ##############################################
 # ARIMA GENOMICS MAPPING PIPELINE 02/08/2019 #
@@ -14,27 +14,27 @@
 # Commands #
 ##########################################
 
-SRA='basename_of_fastq_files'
-LABEL='overall_exp_name'
-BWA='/software/bwa/bwa-0.7.12/bwa'
-SAMTOOLS='/software/samtools/samtools-1.3.1/samtools'
-IN_DIR='/path/to/gzipped/fastq/files'
-REF='/path/to/reference_sequences/reference_sequeneces.fa'
+SRA="$1"
+LABEL="$2"
+BWA='/usr/bin/bwa'
+SAMTOOLS='/usr/bin/samtools'
+IN_DIR="$3"
+REF="$4"
 FAIDX='$REF.fai'
-PREFIX='bwa_index_name'
-RAW_DIR='/path/to/write/out/bams'
-FILT_DIR='/path/to/write/out/filtered/bams'
-FILTER='/path/to/filter_five_end.pl'
-COMBINER='/path/to/two_read_bam_combiner.pl'
-STATS='/path/to/get_stats.pl'
-PICARD='/software/picard/picard-2.6.0/build/libs/picard.jar'
-TMP_DIR='/path/to/write/out/temporary/files'
-PAIR_DIR='/path/to/write/out/paired/bams'
-REP_DIR='/path/to/where/you/want/deduplicated/files'
+PREFIX='bwa_index'
+RAW_DIR=$(pwd)/raw
+FILT_DIR=$(pwd)/filt
+FILTER='/opt/bin/filter_five_end.pl'
+COMBINER='/opt/bin/two_read_bam_combiner.pl'
+STATS='/opt/bin/get_stats.pl'
+PICARD='/usr/share/java/picard.jar'
+TMP_DIR=$(pwd)/tmp
+PAIR_DIR=$(pwd)/paired
+REP_DIR=$(pwd)/dedup
 REP_LABEL=$LABEL\_rep1
-MERGE_DIR='/path/to/final/merged/alignments/from/any/biological/replicates'
+MERGE_DIR=$(pwd)/merged
 MAPQ_FILTER=10
-CPU=12
+CPU="$5"
 
 echo "### Step 0: Check output directories exist & create them as needed"
 [ -d $RAW_DIR ] || mkdir -p $RAW_DIR
